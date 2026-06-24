@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: rgb(228, 211, 188);
+    font-family: 'Poppins', Tahoma, sans-serif;
+}
+
+header {
+    background-color: rgb(136, 12, 12); /* Cor padrão da Ecolook */
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center; 
+    text-align: center;
+}
+
+/* Acessibilidade: Destaque para navegação via teclado */
+*:focus {
+    outline: 3px solid #ffcc00;
+    outline-offset: 2px;
+}
+
+form {
+    width: 90%;
+    max-width: 600px; /* Evita que fique muito largo no PC */
+    border: 1px solid #666;
+    margin: 30px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+
+fieldset {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+legend {
+    color: rgb(136, 12, 12);
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+label {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+/* Ajuste específico para Checkbox e Radio (não ocupar 100%) */
+input[type="checkbox"], input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* Botão de Enviar */
+#btgo {
+    width: 100%;
+    max-width: 300px;
+    background-color: rgb(136, 12, 12);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+#btgo:hover {
+    background-color: #5a0a0a;
+}
+
+/* Tabela Responsiva */
+.table-container {
+    width: 90%;
+    margin: 20px auto;
+    overflow-x: auto; /* Permite rolar a tabela no celular se for grande */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+
+footer {
+    color: brown;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.navegacao-auxiliar {
+    background: transparent; /* Garante que não haja cor de fundo */
+    padding: 30px 20px 10px 20px;
+    display: flex;
+    justify-content: flex-start; /* Alinha o botão à esquerda */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+.btn-voltar {
+    text-decoration: none;
+    color: rgb(136, 12, 12); /* O vermelho/marrom da sua marca */
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: 2px solid rgb(136, 12, 12);
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+
+.btn-voltar:hover {
+    background-color: rgb(136, 12, 12);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateX(-5px); /* Efeito visual de "voltar" */
+}
+
+.btn-voltar:focus {
+    outline: 3px solid #ffcc00;
+    outline-offset: 4px;
+}
+
+/* Breakpoint para Mobile (Slide 2) */
+@media screen and (max-width: 600px) {
+    form {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 24px;
+    }
+}

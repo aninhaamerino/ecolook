@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLook - Moda Consciente</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Ajusta as imagens da vitrine para ficarem padronizadas */
+        .produto img {
+            width: 100%;
+            height: 280px;        /* Fixa uma altura padrão para todas as fotos da vitrine */
+            object-fit: cover;    /* Corta a imagem de forma inteligente sem distorcer ou esticar */
+            border-radius: 8px;   /* Deixa as bordinhas levemente arredondadas e elegantes */
+        }
+
+        /* Ajusta a imagem de dentro do Popup */
+        #popup-img {
+            max-width: 100%;
+            height: 350px;        /* Altura excelente para visualização no modal */
+            object-fit: contain;  /* Mostra a foto inteira sem cortar nada dentro do popup */
+            background-color: #f9f9f9; /* Um fundo bem sutil caso a imagem seja menor */
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* CORREÇÃO DE CONTRASTE: Garante que os textos informativos tenham leitura legível no fundo bege */
+        .bannerzuzu-texto, .conteudo-zuzu, p {
+            color: #1a1a1a !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <div class="header-top">
+        <div class="container-pesquisa">
+            <input type="text" placeholder="O que você está procurando?" class="barra-pesquisa" aria-label="Barra de pesquisa de produtos">
+        </div>
+
+        <div class="logo-container">
+            <h1 class="logo">EcoLook</h1>
+            <img src="img/cerejaa.png" class="cereja" alt="">
+        </div>
+
+        <div class="icons">
+            <a href="login.html" aria-label="Acessar minha conta">
+                <i class="fa-regular fa-user"></i>
+            </a>
+            <a href="favoritos.html" aria-label="Ver meus produtos favoritos">
+                <i class="fa-regular fa-heart"></i>
+            </a>
+            <a href="carrinho.html" aria-label="Ver minha sacola de compras">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </a>
+        </div>
+    </div>
+</header>
+
+<nav class="navegacao-principal" aria-label="Menu Principal">
+    <input type="checkbox" id="menu-check">
+
+    <label for="menu-check" class="botao-menu" aria-label="Abrir menu de categorias" role="button" tabindex="0"
+           onkeydown="if(event.key === 'Enter') document.getElementById('menu-check').click();">
+        <span class="hamburguer"></span>
+    </label>
+
+    <div class="menu-container">
+        <ul class="lista-links">
+            <li tabindex="0" role="button" data-categoria="todos" onkeydown="if(event.key === 'Enter') this.click();">Todos</li> 
+            <li tabindex="0" role="button" data-categoria="destaques" onkeydown="if(event.key === 'Enter') this.click();">Destaques</li>
+            <li class="destaque" tabindex="0" role="button" data-categoria="saldos" onkeydown="if(event.key === 'Enter') this.click();">Saldos</li>
+            <li tabindex="0" role="button" data-categoria="feminino" onkeydown="if(event.key === 'Enter') this.click();">Feminino</li>
+            <li tabindex="0" role="button" data-categoria="masculino" onkeydown="if(event.key === 'Enter') this.click();">Masculino</li>
+            <li tabindex="0" role="button" data-categoria="jeans" onkeydown="if(event.key === 'Enter') this.click();">Jeans</li>
+            <li id="link-formulario">
+                <a href="formulario.html">Enviar Peças</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="banner">
+    <div class="slides">
+        <img src="img/banner.png" class="slide ativo" alt="Banner promocional EcoLook">
+        <img src="img/bannerzuzu.png" class="slide" alt="Banner coleções sustentáveis">
+    </div>
+
+    <button class="prev" aria-label="Slide anterior">❮</button>
+    <button class="next" aria-label="Próximo slide">❯</button>
+
+    <div class="dots">
+        <span class="dot ativo" aria-label="Ir para o slide 1"></span>
+        <span class="dot" aria-label="Ir para o slide 2"></span>
+    </div>
+</div>
+
+<main>
+    <article class="produto" data-tags="destaques feminino jeans"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Jaqueta Jeans"
+             data-img="img/jaqueta.ia.jpg"
+             data-tamanho="M" data-estado="Bom" data-preco="79,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Jaqueta Jeans aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/jaqueta.ia.jpg" alt="Fotografia conceitual de nuvens ao vento representando a Jaqueta Jeans">
+        <h4>Jaqueta Jeans</h4>
+        <p class="preco">R$ 79,90</p>
+    </article>
+
+    <article class="produto" data-tags="saldos feminino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Camiseta"
+             data-img="img/camiseta.ia.jpg"
+             data-tamanho="M" data-estado="Bom" data-preco="39,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Camiseta aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/camiseta.ia.jpg" alt="Cenário aberto com brisa suave e céu limpo representando a Camiseta sustentável">
+        <h4>Camiseta</h4>
+        <p class="preco">R$ 39,90</p>
+    </article>
+
+    <article class="produto" data-tags="feminino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Vestido"
+             data-img="img/vestido.ia.jpg"
+             data-tamanho="P" data-estado="Bom" data-preco="59,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Vestido aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/vestido.ia.jpg" alt="Movimento do ar entre folhagens sob o sol representando o Vestido Ecolook">
+        <h4>Vestido</h4>
+        <p class="preco">R$ 59,90</p>
+    </article>
+
+    <article class="produto" data-tags="masculino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Blusa de Frio"
+             data-img="img/friomascu.ia.jpg"
+             data-tamanho="G" data-estado="Bom" data-preco="89,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Blusa de Frio aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/friomascu.ia.jpg" alt="Névoa matinal sobre as montanhas representando o clima da Blusa de frio">
+        <h4>Blusa de Frio</h4>
+        <p class="preco">R$ 89,90</p>
+    </article>
+
+    <article class="produto" data-tags="jeans masculino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Calça Jeans Slim"
+             data-img="img/jeansslim.ia.jpg"
+             data-tamanho="42" data-estado="Bom" data-preco="119,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Calça Jeans Slim aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/jeansslim.ia.jpg" alt="Horizonte amplo com vento forte representando a Calça Jeans Slim">
+        <h4>Calça Jeans Slim</h4>
+        <p class="preco">R$ 119,90</p>
+    </article>
+
+    <article class="produto" data-tags="jeans feminino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Saia Jeans"
+             data-img="img/saiajeans.ia.jpg"
+             data-tamanho="38" data-estado="Bom" data-preco="69,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Saia Jeans aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/saiajeans.ia.jpg" alt="Céu azul com nuvens brancas e leves representando a Saia Jeans">
+        <h4>Saia Jeans</h4>
+        <p class="preco">R$ 69,90</p>
+    </article>
+
+    <article class="produto" data-tags="destaques masculino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Camisa Casual"
+             data-img="img/camisacasual.ia.jpg"
+             data-tamanho="M" data-estado="Excelente" data-preco="99,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Camisa Casual aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/camisacasual.ia.jpg" alt="Ar fresco sobre um campo aberto ao entardecer representando a Camisa Casual">
+        <h4>Camisa Casual</h4>
+        <p class="preco">R$ 99,90</p>
+    </article>
+
+    <article class="produto" data-tags="feminino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Cropped Top"
+             data-img="img/crpped.ia.jpg"
+             data-tamanho="P" data-estado="Novo" data-preco="29,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Cropped Top aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/crpped.ia.jpg" alt="Claridade solar filtrada pelo ar fresco representando o Cropped Top">
+        <h4>Cropped Top</h4>
+        <p class="preco">R$ 29,90</p>
+    </article>
+
+    <article class="produto" data-tags="saldos feminino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Shorts Eco"
+             data-img="img/shortseco.ia.jpg"
+             data-tamanho="40" data-estado="Bom" data-preco="45,00">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Shorts Eco aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/shortseco.ia.jpg" alt="Grãos de areia soprados pelo vento livre representando o Shorts Eco">
+        <h4>Shorts Eco</h4>
+        <p class="preco">R$ 45,00</p>
+    </article>
+
+    <article class="produto" data-tags="destaques feminino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Casaco de Lã"
+             data-img="img/jaqueta.ia.jpg"
+             data-tamanho="G" data-estado="Excelente" data-preco="149,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Casaco de Lã aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/jaqueta.ia.jpg" alt="Nuvens densas de inverno flutuando sob o vento representando o Casaco de Lã">
+        <h4>Casaco de Lã</h4>
+        <p class="preco">R$ 149,90</p>
+    </article>
+
+    <article class="produto" data-tags="saldos masculino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Bermuda Cargo"
+             data-img="img/bermudacargo.ia.jpg"
+             data-tamanho="44" data-estado="Bom" data-preco="59,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Bermuda Cargo aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/bermudacargo.ia.jpg" alt="Vento movendo copas de árvores em floresta preservada representando a Bermuda Cargo">
+        <h4>Bermuda Cargo</h4>
+        <p class="preco">R$ 59,90</p>
+    </article>
+
+    <article class="produto" data-tags="destaques masculino"
+             role="button" tabindex="0"
+             onclick="abrirProduto(this)"
+             onkeydown="if(event.key === 'Enter') abrirProduto(this)"
+             data-nome="Jaqueta Bomber"
+             data-img="img/jaquetabomber.ia.jpg"
+             data-tamanho="M" data-estado="Novo" data-preco="139,90">
+         
+        <button class="coracao-favorito" onclick="favoritarDireto(event, this)" aria-label="Adicionar Jaqueta Bomber aos favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <img src="img/jaquetabomber.ia.jpg" alt="Formação de tempestade de vento no horizonte representando a Jaqueta Bomber">
+        <h4>Jaqueta Bomber</h4>
+        <p class="preco">R$ 139,90</p>
+    </article>
+</main>
+
+<footer class="footer">
+    <p class="footer-frase">moda consciente com personalidade ♡</p>
+    <div class="footer-links">
+        <a href="#">Instagram</a>
+        <a href="#">Pinterest</a>
+        <a href="#">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 EcoLook</p>
+</footer>
+
+<div id="popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-nome">
+    <div class="conteudo-popup">
+        <span onclick="fecharPopup()" role="button" tabindex="0" onkeydown="if(event.key === 'Enter') fecharPopup()" aria-label="Fechar janela de detalhes">
+            <i class="fa-solid fa-xmark"></i>
+        </span>
+
+        <img id="popup-img" alt="Foto ampliada do produto selecionado">
+        <h2 id="popup-nome" aria-live="polite">Carregando produto...</h2>
+        <p id="popup-tamanho"></p>
+        <p id="popup-estado"></p>
+        <h3 id="popup-preco" aria-live="polite">Preço...</h3>
+
+        <button class="btn-carrinho">
+            <i class="fa-solid fa-bag-shopping"></i>
+            Adicionar à sacola
+        </button>
+    </div>
+</div>
+
+<a href="https://wa.me/5518996197282" class="whatsapp" target="_blank" rel="noopener" aria-label="Falar conosco no WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<div id="mensagem-carrinho" class="mensagem-carrinho" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check"></i>
+    Produto adicionado à sacola!
+</div>
+
+<script>
+let produtoAtual = {};
+
+/* ABRIR POPUP */
+function abrirProduto(elemento){
+    document.getElementById("popup-nome").innerText = elemento.getAttribute("data-nome");
+    document.getElementById("popup-img").src = elemento.getAttribute("data-img");
+    
+    // CORREÇÃO DE ACESSIBILIDADE DINÂMICA: Passa o alt descritivo e conceitual do card para a imagem interna do modal
+    document.getElementById("popup-img").alt = elemento.querySelector("img").alt;
+    
+    document.getElementById("popup-tamanho").innerText = "Tamanho: " + elemento.getAttribute("data-tamanho");
+    document.getElementById("popup-estado").innerText = "Estado: " + elemento.getAttribute("data-estado");
+    document.getElementById("popup-preco").innerText = "R$ " + elemento.getAttribute("data-preco");
+
+    produtoAtual = {
+        nome: elemento.getAttribute("data-nome"),
+        img: elemento.getAttribute("data-img"),
+        preco: elemento.getAttribute("data-preco")
+    };
+
+    document.getElementById("popup").style.display = "flex";
+}
+
+/* FECHAR POPUP */
+function fecharPopup(){
+    document.getElementById("popup").style.display = "none";
+}
+
+window.onclick = function(event){
+    if(event.target === document.getElementById("popup")){
+        fecharPopup();
+    }
+}
+
+/* CARRINHO */
+document.querySelector(".btn-carrinho").addEventListener("click", () => {
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    carrinho.push(produtoAtual);
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+    let mensagem = document.getElementById("mensagem-carrinho");
+    mensagem.classList.add("mostrar");
+
+    setTimeout(() => {
+        mensagem.classList.remove("mostrar");
+    }, 2000);
+
+    fecharPopup();
+});
+
+/* BANNER */
+let slides = document.querySelectorAll('.slide');
+let dots = document.querySelectorAll('.dot');
+let index = 0;
+
+function mostrarSlide(i){
+    slides.forEach(s => s.classList.remove('ativo'));
+    dots.forEach(d => d.classList.remove('ativo'));
+    slides[i].classList.add('ativo');
+    dots[i].classList.add('ativo');
+}
+
+function proximo(){
+    index = (index + 1) % slides.length;
+    mostrarSlide(index);
+}
+
+function anterior(){
+    index = (index - 1 + slides.length) % slides.length;
+    mostrarSlide(index);
+}
+
+if(document.querySelector('.next')) document.querySelector('.next').onclick = proximo;
+if(document.querySelector('.prev')) document.querySelector('.prev').onclick = anterior;
+
+dots.forEach((dot, i) => {
+    dot.onclick = () => {
+        index = i;
+        mostrarSlide(index);
+    };
+});
+
+setInterval(proximo, 3000);
+
+/* FILTRO DE CATEGORIAS + PESQUISA */
+const barraPesquisa = document.querySelector('.barra-pesquisa');
+const produtos = document.querySelectorAll('article.produto');
+let categoriaAtual = 'todos';
+
+function aplicarFiltros() {
+    const termoBusca = barraPesquisa.value.toLowerCase().trim();
+
+    produtos.forEach(produto => {
+        const nomeProduto = produto.getAttribute('data-nome').toLowerCase();
+        const tagsProduto = produto.getAttribute('data-tags') || '';
+        const listaTags = tagsProduto.split(' ');
+
+        const bateComPesquisa = nomeProduto.includes(termoBusca);
+        const bateComCategoria = (categoriaAtual === 'todos' || listaTags.includes(categoriaAtual));
+
+        if (bateComPesquisa && bateComCategoria) {
+            produto.style.display = "flex";
+        } else {
+            produto.style.display = "none";
+        }
+    });
+}
+
+barraPesquisa.addEventListener('input', aplicarFiltros);
+
+document.querySelectorAll('.lista-links li[data-categoria]').forEach(item => {
+    item.addEventListener('click', () => {
+        categoriaAtual = item.getAttribute('data-categoria');
+        aplicarFiltros();
+    });
+});
+
+/* FAVORITOS DIRETO */
+function favoritarDireto(event, botao) {
+    event.stopPropagation(); 
+
+    const produtoCard = botao.closest('.produto');
+    
+    const infoProduto = {
+        nome: produtoCard.getAttribute("data-nome"),
+        img: produtoCard.getAttribute("data-img"),
+        preco: produtoCard.getAttribute("data-preco"),
+        tamanho: produtoCard.getAttribute("data-tamanho"),
+        estado: produtoCard.getAttribute("data-estado")
+    };
+
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+    const jaFavoritado = favoritos.some(item => item.nome === infoProduto.nome);
+
+    if (!jaFavoritado) {
+        favorites = favoritos.push(infoProduto);
+        localStorage.setItem("favoritos", JSON.stringify(favoritos));
+        botao.innerHTML = '<i class="fa-solid fa-heart"></i>';
+    } else {
+        favoritos = favoritos.filter(item => item.nome !== infoProduto.nome);
+        localStorage.setItem("favoritos", JSON.stringify(favoritos));
+        botao.innerHTML = '<i class="fa-regular fa-heart"></i>';
+    }
+}
+</script>
+
+</body>
+</html>

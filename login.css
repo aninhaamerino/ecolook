@@ -1,0 +1,161 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #5e0b0b, #a11d1d);
+    min-height: 100vh; /* Alterado para min-height para evitar quebras em telas muito pequenas */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Margem de segurança para o mobile */
+}
+
+.container-login{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa-login{
+    position: relative; /* Necessário para posicionar o botão de voltar */
+    background: white;
+    width: 100%;
+    max-width: 400px; /* Garante o tamanho padrão no desktop e limita no mobile */
+
+    padding: 40px 30px; /* Ajuste sutil no preenchimento interno */
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: flutuar 3s ease-in-out infinite;
+}
+
+/* Estilização do Botão Voltar */
+.btn-voltar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #8B0000;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-voltar:hover {
+    color: #a00000;
+    transform: scale(1.1);
+}
+
+.caixa-login h1{
+    color: #8B0000;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.caixa-login p{
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.campo label{
+    margin-bottom: 8px;
+    color: #444;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.campo input{
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.campo input:focus{
+    border-color: #8B0000;
+    box-shadow: 0 0 10px rgba(139,0,0,0.2);
+}
+
+button{
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #8B0000;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #a00000;
+    transform: translateY(-2px);
+}
+
+.criar-conta{
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.criar-conta a{
+    color: #8B0000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cereja-login{
+    width: 60px;
+    display: block;
+    margin: 0 auto 15px auto;
+    animation: flutuar-cereja 3s ease-in-out infinite;
+}
+
+/* Animações */
+@keyframes flutuar{
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes flutuar-cereja{
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Media Query para telas Mobile */
+@media (max-width: 480px) {
+    .caixa-login {
+        padding: 35px 20px 25px 20px; /* Diminui o espaçamento interno para sobrar espaço na tela */
+        animation: none; /* Remove a animação no mobile para melhor performance e usabilidade */
+    }
+    
+    .caixa-login h1 {
+        font-size: 22px;
+    }
+    
+    .campo input, button {
+        padding: 12px; /* Inputs ligeiramente menores no celular para não dar scroll desnecessário */
+    }
+}

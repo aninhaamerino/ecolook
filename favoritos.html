@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLook - Meus Favoritos</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos específicos para a página de Favoritos */
+        .titulo-favoritos {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .container-vazio {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+        }
+
+        .container-vazio i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .container-vazio p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .btn-voltar:hover {
+            background-color: #555;
+        }
+
+        /* Reaproveitando e garantindo o tamanho das fotos igual à index */
+        .produto img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .produto {
+            position: relative;
+        }
+
+        /* Botão de remover dos favoritos */
+        .btn-remover-favorito {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: #ff4d6d;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+
+        .btn-remover-favorito:hover {
+            transform: scale(1.1);
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="container-pesquisa">
+                <a href="index.html" class="btn-voltar" style="padding: 8px 15px; font-size: 0.9rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar para a Loja
+                </a>
+            </div>
+
+            <div class="logo-container">
+                <h1 class="logo" style="cursor: pointer;" onclick="window.location.href='index.html'">EcoLook</h1>
+                <img src="img/cerejaa.png" class="cereja">
+            </div>
+
+            <div class="icons">
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="index.html"><i class="fa-solid fa-house"></i></a>
+                <a href="carrinho.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            </div>
+        </div>
+    </header>
+
+    
+    <main id="vitrine-favoritos">
+        </main>
+
+    <footer class="footer">
+        <p class="footer-frase">moda consciente com personalidade ♡</p>
+        <div class="footer-links">
+            <a href="">Instagram</a>
+            <a href="">Pinterest</a>
+            <a href="">Contato</a>
+        </div>
+        <p class="footer-copy">© 2026 EcoLook</p>
+    </footer>
+
+    <script>
+        const vitrine = document.getElementById('vitrine-favoritos');
+
+        function carregarFavoritos() {
+            // Pega a lista do localStorage
+            let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+            // Se não tiver nada salvo, mostra a tela de lista vazia
+            if (favoritos.length === 0) {
+                vitrine.innerHTML = `
+                    <div class="container-vazio" style="grid-column: 1 / -1;">
+                        <i class="fa-regular fa-heart"></i>
+                        <p>Sua lista de favoritos ainda está vazia.</p>
+                        <a href="index.html" class="btn-voltar">Explorar Peças</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Limpa a vitrine antes de desenhar
+            vitrine.innerHTML = '';
+
+            // Desenha cada produto idêntico à sua página principal
+            favoritos.forEach((produto, index) => {
+                const artigo = document.createElement('article');
+                artigo.className = 'produto';
+                
+                artigo.innerHTML = `
+                    <button class="btn-remover-favorito" onclick="removerDosFavoritos('${produto.nome}')" aria-label="Remover dos favoritos">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+                    <img src="${produto.img}" alt="${produto.nome}">
+                    <h4>${produto.nome}</h4>
+                    <p class="preco">R$ ${produto.preco}</p>
+                `;
+                
+                vitrine.appendChild(artigo);
+            });
+        }
+
+        // Função para remover o item se o usuário clicar no coração cheio dentro da página de favoritos
+        function removerDosFavoritos(nomeProduto) {
+            let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            
+            // Filtra a lista removendo o item que tem o mesmo nome
+            favoritos = favoritos.filter(item => item.nome !== nomeProduto);
+            
+            // Salva de volta no localStorage
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+            
+            // Recarrega a página de favoritos na hora para atualizar o visual
+            carregarFavoritos();
+        }
+
+        // Executa a função assim que a página abre
+        document.addEventListener('DOMContentLoaded', carregarFavoritos);
+    </script>
+
+</body>
+</html>
